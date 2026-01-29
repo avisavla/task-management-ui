@@ -1,11 +1,12 @@
-<form [formGroup]="loginForm" (ngSubmit)="OnSubmit()">
+<form [formGroup]="registerForm" (ngSubmit)="OnSubmit()">
+
+    <input type="text" placeholder="Email" formControlName="email"/>
 
     <input type="text" placeholder="Username" formControlName="userName"/>
 
     <input type="text" placeholder="Password" formControlName="password"/>
 
-    <button type="submit">Login</button>
+    <button type="submit">Submit</button>
 
     <p *ngIf="errorMessage" style="color: red;">{{errorMessage}}</p>
-    
 </form>
