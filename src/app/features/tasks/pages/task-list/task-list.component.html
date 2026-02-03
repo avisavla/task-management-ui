@@ -8,10 +8,23 @@
 </div>
 
 <ul *ngIf="!isLoading && tasks.length>0">
+
+    <button (click)="prevPage()" [disabled]="pageNo==1">Previous Page</button>
+    <span>Page {{pageNo}}</span>
+    <button (click)="nextPage()" [disabled]="pageNo*pageSize>=totalCount">Next Page</button>
+
+    <select (change)="onPageSizeChange($event)">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+    </select>
+    <p>Showing {{showingCount}} out of {{totalCount}}</p>
+
     <li *ngFor="let task of tasks">
         <strong>{{task.name}}</strong>
         <p>{{task.description}}</p>
         <p>Status : {{task.status}}</p>
         <br>
     </li>
+
 </ul>
