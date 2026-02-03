@@ -1,1 +1,17 @@
-<p>task-list works!</p>
+<h2>Tasks</h2>
+
+<mat-progress-spinner *ngIf="isLoading" mode="indeterminate">
+</mat-progress-spinner>
+
+<div *ngIf="!isLoading && tasks.length==0">
+    No Tasks found
+</div>
+
+<ul *ngIf="!isLoading && tasks.length>0">
+    <li *ngFor="let task of tasks">
+        <strong>{{task.name}}</strong>
+        <p>{{task.description}}</p>
+        <p>Status : {{task.status}}</p>
+        <br>
+    </li>
+</ul>

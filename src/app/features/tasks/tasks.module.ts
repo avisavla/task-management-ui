@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { TasksRoutingModule } from './tasks-routing.module';
 import { TaskListComponent } from './pages/task-list/task-list.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { TaskListComponent } from './pages/task-list/task-list.component';
   ],
   imports: [
     CommonModule,
-    TasksRoutingModule
+    TasksRoutingModule,
+    MatProgressSpinnerModule
   ]
 })
 export class TasksModule { }

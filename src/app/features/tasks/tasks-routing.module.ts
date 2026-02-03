@@ -1,8 +1,9 @@
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TaskListComponent } from './pages/task-list/task-list.component';
+import { AuthGuard } from 'src/app/core/guards/auth.guard';
 
-const routes: Routes = [{path:'',component:TaskListComponent}];
+const routes: Routes = [{path:'',component:TaskListComponent,canActivate:[AuthGuard]}];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
