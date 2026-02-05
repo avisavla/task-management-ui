@@ -15,8 +15,10 @@ export class TaskListComponent implements OnInit{
   pageNo=1;
   pageSize=5;
   totalCount=0;
+  status:string='';
+  text:string='';
 
-  constructor(private taskServie:TaskService) {}
+  constructor(private taskService:TaskService) {}
 
   ngOnInit(): void {
     this.loadTasks();
@@ -25,7 +27,7 @@ export class TaskListComponent implements OnInit{
   loadTasks(){
     this.isLoading=true;
 
-    this.taskServie.getTasks(this.pageNo,this.pageSize).subscribe({
+    this.taskService.getTasks(this.status,this.text,this.pageNo,this.pageSize).subscribe({
       next:(res)=>{
         this.tasks = res.items;
         this.totalCount = res.totalCount;
@@ -48,12 +50,6 @@ export class TaskListComponent implements OnInit{
   nextPage(){
       this.pageNo++;
       this.loadTasks();
-  }
-
-  onPageSizeChange(event:any){
-    this.pageSize = event.target.value;
-    this.pageNo=1;
-    this.loadTasks();
   }
 
   get showingCount():number{

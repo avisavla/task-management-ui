@@ -13,8 +13,8 @@ export class TaskService {
 
   constructor(private http:HttpClient) { }
 
-  getTasks(pageNo:number,pageSize:number):Observable<any>{
-    const params = new HttpParams().set('pageNo',pageNo).set('pageSize',pageSize);
+  getTasks(status:string,text:string,pageNo:number,pageSize:number):Observable<any>{
+    const params = new HttpParams().set('status',status).set('text',text).set('pageNo',pageNo).set('pageSize',pageSize);
     return this.http.get<any>(this.apiUrl,{params});
   }
 }

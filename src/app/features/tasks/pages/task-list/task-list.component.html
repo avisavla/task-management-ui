@@ -13,12 +13,24 @@
     <span>Page {{pageNo}}</span>
     <button (click)="nextPage()" [disabled]="pageNo*pageSize>=totalCount">Next Page</button>
 
-    <select (change)="onPageSizeChange($event)">
+    <select [(ngModel)]="pageSize" (change)="loadTasks()">
         <option value="5">5</option>
         <option value="10">10</option>
         <option value="20">20</option>
     </select>
     <p>Showing {{showingCount}} out of {{totalCount}}</p>
+
+    <br>
+
+    <select [(ngModel)]="status" (change)="loadTasks()">
+        <option value="Pending">Pending</option>
+        <option value="InProgress">InProgress</option>
+        <option value="Completed">Completed</option>
+    </select>
+
+    <br>
+
+    <textarea [(ngModel)]="text" (change)="loadTasks()" placeholder="Enter text to filter"></textarea>
 
     <li *ngFor="let task of tasks">
         <strong>{{task.name}}</strong>
