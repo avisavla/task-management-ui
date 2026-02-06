@@ -17,4 +17,8 @@ export class TaskService {
     const params = new HttpParams().set('status',status).set('text',text).set('pageNo',pageNo).set('pageSize',pageSize);
     return this.http.get<any>(this.apiUrl,{params});
   }
+
+  createTasks(data:any){
+    return this.http.post(this.apiUrl,data);
+  }
 }

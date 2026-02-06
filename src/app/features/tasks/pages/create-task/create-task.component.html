@@ -1,0 +1,11 @@
+<form [formGroup]="createTaskForm" (ngSubmit)="OnSubmit()">
+    
+    <input type="text" placeholder="name" formControlName="name">
+
+    <input type="text-area" placeholder="description" formControlName="description">
+
+    <button type="submit">Create</button>
+
+    <p *ngIf="successMessage" style="color: rgb(79, 227, 79);">{{successMessage}}</p>
+    <p *ngIf="errorMessage" style="color: red;">{{errorMessage}}</p>
+</form>

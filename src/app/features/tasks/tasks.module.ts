@@ -4,19 +4,22 @@ import { CommonModule } from '@angular/common';
 import { TasksRoutingModule } from './tasks-routing.module';
 import { TaskListComponent } from './pages/task-list/task-list.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { FormsModule,ɵInternalFormsSharedModule } from "@angular/forms";
+import { FormsModule, ɵInternalFormsSharedModule, ReactiveFormsModule } from "@angular/forms";
+import { CreateTaskComponent } from './pages/create-task/create-task.component';
 
 
 @NgModule({
   declarations: [
-    TaskListComponent
+    TaskListComponent,
+    CreateTaskComponent
   ],
   imports: [
     CommonModule,
     TasksRoutingModule,
     MatProgressSpinnerModule,
     ɵInternalFormsSharedModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
 ]
 })
 export class TasksModule { }
