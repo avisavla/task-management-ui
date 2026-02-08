@@ -32,10 +32,15 @@
 
     <textarea [(ngModel)]="text" (change)="loadTasks()" placeholder="Enter text to filter"></textarea>
 
+    <br>
+    <button (click)="createTask()">Create</button>
+
     <li *ngFor="let task of tasks">
         <strong>{{task.name}}</strong>
         <p>{{task.description}}</p>
         <p>Status : {{task.status}}</p>
+        <button (click)="editTask(task.id)">Edit</button>
+        <br>
         <br>
     </li>
 

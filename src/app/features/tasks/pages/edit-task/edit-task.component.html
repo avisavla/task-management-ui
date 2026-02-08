@@ -1,0 +1,13 @@
+<form [formGroup]="editTaskForm" (ngSubmit)="OnSubmit()">
+    
+    <input type="text" placeholder="name" formControlName="name">
+
+    <input type="text-area" placeholder="description" formControlName="description">
+
+    <input type="text" placeholder="status" formControlName="status">
+
+    <button type="submit">Update</button>
+
+    <p *ngIf="successMessage" style="color: rgb(79, 227, 79);">{{successMessage}}</p>
+    <p *ngIf="errorMessage" style="color: red;">{{errorMessage}}</p>
+</form>

@@ -6,12 +6,14 @@ import { TaskListComponent } from './pages/task-list/task-list.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { FormsModule, ɵInternalFormsSharedModule, ReactiveFormsModule } from "@angular/forms";
 import { CreateTaskComponent } from './pages/create-task/create-task.component';
+import { EditTaskComponent } from './pages/edit-task/edit-task.component';
 
 
 @NgModule({
   declarations: [
     TaskListComponent,
-    CreateTaskComponent
+    CreateTaskComponent,
+    EditTaskComponent
   ],
   imports: [
     CommonModule,

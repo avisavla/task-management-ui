@@ -39,6 +39,14 @@ export class TaskListComponent implements OnInit{
     });
   }
 
+  createTask(){
+      window.location.href = 'http://localhost:4200/task/create';
+    }
+
+  editTask(id:number){
+    window.location.href = `http://localhost:4200/task/edit/${id}`;
+  }
+
   prevPage(){
     if(this.pageNo>1)
     {

@@ -28,6 +28,7 @@ export class CreateTaskComponent {
     this.taskService.createTasks(this.createTaskForm.value).subscribe({
       next:res=>{
         this.successMessage = 'Task Created successfully';
+        window.location.href = 'http://localhost:4200/task';
       },
       error:err=>{
         this.errorMessage = err.error || 'Task not created';

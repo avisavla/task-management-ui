@@ -21,4 +21,12 @@ export class TaskService {
   createTasks(data:any){
     return this.http.post(this.apiUrl,data);
   }
+
+  getTask(id:number):Observable<any>{
+    return this.http.get<any>(this.apiUrl+`/${id}`);
+  }
+
+  updateTask(data:any){
+    return this.http.put(this.apiUrl+`/${data.id}`,data);
+  }
 }
