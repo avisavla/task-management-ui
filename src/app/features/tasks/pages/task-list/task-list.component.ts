@@ -39,6 +39,20 @@ export class TaskListComponent implements OnInit{
     });
   }
 
+  deleteTask(id:number,name:string){
+    this.isLoading=true;
+
+    this.taskService.deleteTask(id).subscribe({
+      next:(res)=>{
+        confirm("Are you sure you want to delete task "+name+" ?");
+        this.loadTasks();
+      },
+      error:()=>{
+        console.log('delete task failed');  
+      }
+    });
+  }
+
   createTask(){
       window.location.href = 'http://localhost:4200/task/create';
     }
