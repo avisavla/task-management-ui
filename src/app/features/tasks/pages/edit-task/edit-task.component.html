@@ -1,10 +1,18 @@
 <form [formGroup]="editTaskForm" (ngSubmit)="OnSubmit()">
     
-    <input type="text" placeholder="name" formControlName="name">
+    <input type="text" placeholder="name" formControlName="Name">
+    <p *ngIf="editTaskForm.get('Name')?.errors?.['serverError']" style="color:red">
+    {{ editTaskForm.get('Name')?.errors?.['serverError'] }}
+    </p>
+    <br>
 
-    <input type="text-area" placeholder="description" formControlName="description">
+    <input type="text-area" placeholder="description" formControlName="Description">
+    <p *ngIf="editTaskForm.get('Description')?.errors?.['serverError']" style="color:red">
+    {{ editTaskForm.get('Description')?.errors?.['serverError'] }}
+    </p>
+    <br>
 
-    <input type="text" placeholder="status" formControlName="status">
+    <input type="text" placeholder="status" formControlName="Status">
 
     <button type="submit">Update</button>
 

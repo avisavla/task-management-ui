@@ -27,9 +27,9 @@ export class EditTaskComponent {
   ngOnInit(){
     this.editTaskForm = this.fb.group({
           id:[''],
-          name:[''],
-          description:[''],
-          status:['']
+          Name:[''],
+          Description:[''],
+          Status:['']
         });
     const idString = this.route.snapshot.paramMap.get('id');
     this.id=Number(idString);
@@ -41,9 +41,9 @@ export class EditTaskComponent {
       next:(res)=>{
         this.editTaskForm.patchValue({
           id:id,
-          name:res.name,
-          description:res.description,
-          status:res.status
+          Name:res.name,
+          Description:res.description,
+          Status:res.status
         });
       },
       error:err=>{
@@ -53,13 +53,33 @@ export class EditTaskComponent {
   }
 
   OnSubmit(){
+      if (!['Pending','InProgress','Completed'].includes(this.editTaskForm.value.Status)) 
+      {
+        this.errorMessage = "Status must be Pending, InProgress, Completed";
+        return;
+      }
     this.taskService.updateTask(this.editTaskForm.value).subscribe({
       next:(res)=>{
         this.successMessage='Task Updated Successfully'
         window.location.href = 'http://localhost:4200/task';
       },  
       error:err=>{
-        this.errorMessage = err.error || 'Update task failed';
+        if (err.status === 400 && err.error?.errors) 
+        {
+            Object.keys(err.error.errors).forEach(field => {
+              this.editTaskForm.get(field)?.setErrors({
+                serverError: err.error.errors[field]
+              });
+            });
+        }
+        else if(err.status === 400)
+          this.errorMessage = err.error;
+        else if (err.status === 500)
+          this.errorMessage = "Server error. Try later.";
+        else if (err.status === 0)
+          this.errorMessage = "Backend not reachable";
+        else
+          this.errorMessage = "Task not created";
       }
     })
 

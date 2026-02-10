@@ -1,8 +1,16 @@
 <form [formGroup]="createTaskForm" (ngSubmit)="OnSubmit()">
     
-    <input type="text" placeholder="name" formControlName="name">
+    <input type="text" placeholder="name" formControlName="Name">
+    <p *ngIf="createTaskForm.get('Name')?.errors?.['serverError']" style="color:red">
+    {{ createTaskForm.get('Name')?.errors?.['serverError'] }}
+    </p>
+    <br>
 
-    <input type="text-area" placeholder="description" formControlName="description">
+    <input type="text-area" placeholder="description" formControlName="Description">
+    <p *ngIf="createTaskForm.get('Description')?.errors?.['serverError']" style="color: red;">
+    {{ createTaskForm.get('Description')?.errors?.['serverError'] }}
+    </p>
+    <br>
 
     <button type="submit">Create</button>
 

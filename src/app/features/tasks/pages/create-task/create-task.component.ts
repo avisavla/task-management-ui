@@ -19,8 +19,8 @@ export class CreateTaskComponent {
 
   ngOnInit(){
     this.createTaskForm = this.fb.group({
-      name:['',Validators.required],
-      description:['']
+      Name:['',Validators.required],
+      Description:['']
     });
   }
 
@@ -31,7 +31,23 @@ export class CreateTaskComponent {
         window.location.href = 'http://localhost:4200/task';
       },
       error:err=>{
-        this.errorMessage = err.error || 'Task not created';
+        if (err.status === 400 && err.error?.errors) 
+        {
+            Object.keys(err.error.errors).forEach(field => {
+              this.createTaskForm.get(field)?.setErrors({
+                serverError: err.error.errors[field]
+              });
+            });
+        }
+        else if(err.status === 400)
+          this.errorMessage = err.error;
+        else if (err.status === 500)
+          this.errorMessage = "Server error. Try later.";
+        else if (err.status === 0)
+          this.errorMessage = "Backend not reachable";
+        else
+          this.errorMessage = "Task not created";
+      
       }
     })
   }

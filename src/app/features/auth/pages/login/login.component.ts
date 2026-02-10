@@ -31,6 +31,7 @@ export class LoginComponent {
     this.authService.login(this.loginForm.value).subscribe({
       next: res=>{
         this.tokenService.setToken(res.token);
+        window.location.href = 'http://localhost:4200/task';
       },
       error:err=>{
         this.errorMessage = err.error || 'Login failed';
