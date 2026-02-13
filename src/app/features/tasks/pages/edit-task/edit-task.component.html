@@ -12,7 +12,12 @@
     </p>
     <br>
 
-    <input type="text" placeholder="status" formControlName="Status">
+    <!-- <input type="text" placeholder="status" formControlName="Status"> -->
+     <select formControlName="Status">
+        <option value="Pending">Pending</option>
+        <option value="InProgress">InProgress</option>
+        <option value="Completed">Completed</option>
+    </select>
 
     <button type="submit">Update</button>
 

@@ -35,6 +35,8 @@
     <br>
     <button (click)="createTask()">Create</button>
 
+    <p style="color: red;" *ngIf="deleteErrorMessage">{{deleteErrorMessage}}</p>
+
     <li *ngFor="let task of tasks">
         <strong>{{task.name}}</strong>
         <p>{{task.description}}</p>

@@ -17,6 +17,7 @@ export class TaskListComponent implements OnInit{
   totalCount=0;
   status:string='';
   text:string='';
+  deleteErrorMessage:string='';
 
   constructor(private taskService:TaskService) {}
 
@@ -40,17 +41,41 @@ export class TaskListComponent implements OnInit{
   }
 
   deleteTask(id:number,name:string){
+    const confirmed = confirm("Are you sure you want to delete task "+name+" ?");
+    if(!confirmed)
+      return;
     this.isLoading=true;
 
     this.taskService.deleteTask(id).subscribe({
       next:(res)=>{
-        confirm("Are you sure you want to delete task "+name+" ?");
         this.loadTasks();
+        this.isLoading = false;
       },
-      error:()=>{
-        console.log('delete task failed');  
+      error:(err)=>{
+        this.handleDeleteError(err);
+        this.isLoading = false; 
       }
     });
+  }
+
+  handleDeleteError(err:any)
+  {
+    if(err.status===404)
+      this.deleteErrorMessage = "Task with provided id does not exists";
+
+    else if(err.status===409)
+      this.deleteErrorMessage = "Task in progress cannot be deleted";
+    
+    else if(err.status === 400 && err.error)
+      this.deleteErrorMessage = err.error;
+
+    else if(err.status === 0)
+      this.deleteErrorMessage = "Server unreachable";
+
+    else
+      this.deleteErrorMessage = "Failed to delete task";
+
+
   }
 
   createTask(){
