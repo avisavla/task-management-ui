@@ -1,0 +1,83 @@
+.login-wrapper{
+    background-color: rgb(220, 164, 220);
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    height: 100vh;
+
+}
+
+.login-form{
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  padding: 30px;
+  background: white;
+  border-radius: 8px;
+  transform: translateY(-120px); 
+}
+
+.login-form input,
+.login-form button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  box-sizing: border-box; 
+}
+
+.login-form button {
+  background-color: #761069;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 35px; /* space for eye icon */
+  box-sizing: border-box;
+}
+
+.eye-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+/* Eye shape */
+.eye {
+  width: 16px;
+  height: 8px;
+  border: 2px solid #555;
+  border-radius: 50%;
+  position: relative;
+}
+
+.eye::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: #555;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

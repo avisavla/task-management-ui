@@ -11,6 +11,8 @@ import { TokenService } from 'src/app/core/services/token.service';
 export class LoginComponent {
   loginForm !: FormGroup;
   errorMessage = '';
+  isLoading=false;
+  passwordFieldType = 'password';
 
   constructor(
     private fb : FormBuilder,
@@ -20,21 +22,44 @@ export class LoginComponent {
 
   ngOnInit(){
     this.loginForm = this.fb.group({
-      userName:['',Validators.required],
-      password:['',Validators.required]
+      UserName:['',Validators.required],
+      Password:['',Validators.required]
     });
   }
 
+  togglePasswordVisibility() {
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+  }
+
   OnSubmit(){
-    if(this.loginForm.invalid) return;
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched(); 
+      return;
+    }
+    this.isLoading = true;
 
     this.authService.login(this.loginForm.value).subscribe({
       next: res=>{
         this.tokenService.setToken(res.token);
         window.location.href = 'http://localhost:4200/task';
+        this.isLoading = false;
       },
       error:err=>{
-        this.errorMessage = err.error || 'Login failed';
+        if (err.status === 400 && err.error?.errors) 
+        {
+            Object.keys(err.error.errors).forEach(field => {
+              this.loginForm.get(field)?.setErrors({
+                serverError: err.error.errors[field]
+              });
+            });
+        }
+        else if(err.status === 400)
+          this.errorMessage = err.error;
+        else if (err.status === 500)
+          this.errorMessage = "Server error. Try later.";
+        else if (err.status === 0)
+          this.errorMessage = "Backend not reachable";
+        this.isLoading = false;
       }
     });
   }
