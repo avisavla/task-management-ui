@@ -1,19 +1,23 @@
-<form [formGroup]="createTaskForm" (ngSubmit)="OnSubmit()">
-    
-    <input type="text" placeholder="name" formControlName="Name">
-    <p *ngIf="createTaskForm.get('Name')?.errors?.['serverError']" style="color:red">
+<div class="create-wrapper">
+<form class="create-form" [formGroup]="createTaskForm" (ngSubmit)="OnSubmit()">
+    <h1 class="form-title">Create Task
+        <span class="cancel-icon" (click)="goBack()">✕</span>
+    </h1>
+    <p class="remove-btm-margin">Name:</p>
+    <input type="text" formControlName="Name">
+    <p *ngIf="createTaskForm.get('Name')?.errors?.['serverError']" class="error">
     {{ createTaskForm.get('Name')?.errors?.['serverError'] }}
     </p>
-    <br>
 
-    <input type="text-area" placeholder="description" formControlName="Description">
-    <p *ngIf="createTaskForm.get('Description')?.errors?.['serverError']" style="color: red;">
+    <p class="remove-btm-margin">Description:</p>
+    <input type="text-area" formControlName="Description">
+    <p *ngIf="createTaskForm.get('Description')?.errors?.['serverError']" class="error">
     {{ createTaskForm.get('Description')?.errors?.['serverError'] }}
     </p>
-    <br>
 
-    <button type="submit">Create</button>
+    <button type="submit">Submit</button>
 
-    <p *ngIf="successMessage" style="color: rgb(79, 227, 79);">{{successMessage}}</p>
-    <p *ngIf="errorMessage" style="color: red;">{{errorMessage}}</p>
+    <p *ngIf="successMessage" class="success">{{successMessage}}</p>
+    <p *ngIf="errorMessage" class="error">{{errorMessage}}</p>
 </form>
+</div>

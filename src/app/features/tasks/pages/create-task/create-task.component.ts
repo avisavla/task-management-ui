@@ -24,6 +24,10 @@ export class CreateTaskComponent {
     });
   }
 
+  goBack() {
+   window.history.back();
+  }
+
   OnSubmit(){
     this.taskService.createTasks(this.createTaskForm.value).subscribe({
       next:res=>{
