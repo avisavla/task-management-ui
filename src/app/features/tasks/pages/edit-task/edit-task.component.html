@@ -1,19 +1,25 @@
-<form [formGroup]="editTaskForm" (ngSubmit)="OnSubmit()">
-    
+<div class="edit-wrapper">
+<form class="edit-form" [formGroup]="editTaskForm" (ngSubmit)="OnSubmit()">
+    <h1 class="form-title">Edit Task
+        <span class="cancel-icon" (click)="goBack()">✕</span>
+    </h1>    
+
+    <p class="remove-margin-btm">Name:</p>
     <input type="text" placeholder="name" formControlName="Name">
-    <p *ngIf="editTaskForm.get('Name')?.errors?.['serverError']" style="color:red">
+    <p *ngIf="editTaskForm.get('Name')?.errors?.['serverError']" class="error">
     {{ editTaskForm.get('Name')?.errors?.['serverError'] }}
     </p>
     <br>
 
+    <p class="remove-margin-btm">Description:</p>
     <input type="text-area" placeholder="description" formControlName="Description">
-    <p *ngIf="editTaskForm.get('Description')?.errors?.['serverError']" style="color:red">
+    <p *ngIf="editTaskForm.get('Description')?.errors?.['serverError']" class="error">
     {{ editTaskForm.get('Description')?.errors?.['serverError'] }}
     </p>
     <br>
 
-    <!-- <input type="text" placeholder="status" formControlName="Status"> -->
-     <select formControlName="Status">
+    <p class="remove-margin-btm">Status:</p>
+    <select formControlName="Status">
         <option value="Pending">Pending</option>
         <option value="InProgress">InProgress</option>
         <option value="Completed">Completed</option>
@@ -21,6 +27,7 @@
 
     <button type="submit">Update</button>
 
-    <p *ngIf="successMessage" style="color: rgb(79, 227, 79);">{{successMessage}}</p>
-    <p *ngIf="errorMessage" style="color: red;">{{errorMessage}}</p>
+    <p *ngIf="successMessage" class="success">{{successMessage}}</p>
+    <p *ngIf="errorMessage" class="error">{{errorMessage}}</p>
 </form>
+</div>

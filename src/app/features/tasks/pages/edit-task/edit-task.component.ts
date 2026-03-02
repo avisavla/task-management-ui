@@ -52,6 +52,10 @@ export class EditTaskComponent {
     });
   }
 
+  goBack(){
+    window.history.back();
+  }
+
   OnSubmit(){
       if (!['Pending','InProgress','Completed'].includes(this.editTaskForm.value.Status)) 
       {

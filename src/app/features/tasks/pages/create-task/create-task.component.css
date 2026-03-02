@@ -4,7 +4,6 @@
     justify-content: center;
     display: flex;
     height: 100vh;
-
 }
 
 .remove-btm-margin{
@@ -18,7 +17,7 @@
   padding: 30px;
   background: white;
   border-radius: 8px;
-  transform: translateY(-120px); 
+  transform: translateY(-60px); 
   padding-top: 60px;
   position: relative;
 }
