@@ -1,12 +1,40 @@
-<form [formGroup]="registerForm" (ngSubmit)="OnSubmit()">
+<div class="register-wrapper">
+<form class="register-form" [formGroup]="registerForm" (ngSubmit)="OnSubmit()">
 
-    <input type="text" placeholder="Email" formControlName="email"/>
+    <h1 class="form-title">Create New User
+        <span class="cancel-icon" (click)="goBack()">✕</span>
+    </h1>
 
-    <input type="text" placeholder="Username" formControlName="userName"/>
+    <p class="remove-margin-btm">Email:</p>
+    <input type="text" formControlName="Email"/>
+    <div class="error" *ngIf="registerForm.get('Email')?.touched && registerForm.get('Email')?.invalid">
+    Email is required
+    </div>
+    <p *ngIf="registerForm.get('Email')?.errors?.['serverError']" class="error">
+    {{ registerForm.get('Email')?.errors?.['serverError'] }}
+    </p>
 
-    <input type="text" placeholder="Password" formControlName="password"/>
+    <p class="remove-margin-btm">Username:</p>
+    <input type="text" formControlName="UserName"/>
+    <p *ngIf="registerForm.get('UserName')?.errors?.['serverError']" class="error">
+    {{ registerForm.get('UserName')?.errors?.['serverError'] }}
+    </p>
+    <div class="error" *ngIf="registerForm.get('UserName')?.touched && registerForm.get('UserName')?.invalid">
+    Username is required
+    </div>
+
+    <p class="remove-margin-btm">Password:</p>
+    <input type="text" formControlName="Password"/>
+    <p *ngIf="registerForm.get('Password')?.errors?.['serverError']" class="error">
+    {{ registerForm.get('Password')?.errors?.['serverError'] }}
+    </p>
+    <div class="error" *ngIf="registerForm.get('Password')?.touched && registerForm.get('Password')?.invalid">
+    Password is required
+    </div>
 
     <button type="submit">Submit</button>
 
-    <p *ngIf="errorMessage" style="color: red;">{{errorMessage}}</p>
+    <p *ngIf="successMessage" class="success">{{successMessage}}</p>
+    <p *ngIf="errorMessage" class="error">{{errorMessage}}</p>
 </form>
+</div>

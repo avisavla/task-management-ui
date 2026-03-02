@@ -31,6 +31,10 @@ export class LoginComponent {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 
+  register(){
+      window.location.href = 'http://localhost:4200/login/register';
+    }
+
   OnSubmit(){
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched(); 

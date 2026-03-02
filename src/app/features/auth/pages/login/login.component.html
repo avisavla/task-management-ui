@@ -21,6 +21,8 @@
     
     <button *ngIf="!isLoading" type="submit">Login</button>
 
+    <button *ngIf="!isLoading" (click)="register()" type="submit">Sign Up</button>
+
     <mat-progress-spinner *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
 
     <p *ngIf="errorMessage" class="error">{{errorMessage}}</p>
