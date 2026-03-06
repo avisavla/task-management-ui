@@ -1,6 +1,8 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,Input } from '@angular/core';
 import {TaskService} from '../../services/task.service';
 import {Task} from '../../model/task.model';
+import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import {ProjectModalComponent} from 'src/app/features/tasks/common/components/project-modal/project-modal.component';
 
 @Component({
   selector: 'app-task-list',
@@ -18,8 +20,10 @@ export class TaskListComponent implements OnInit{
   status:string='';
   text:string='';
   deleteErrorMessage:string='';
+  @Input() task = {} as Task;
+  bsModelRef?: BsModalRef;
 
-  constructor(private taskService:TaskService) {}
+  constructor(private taskService:TaskService,private modalService:BsModalService) {}
 
   ngOnInit(): void {
     this.loadTasks();
@@ -42,6 +46,7 @@ export class TaskListComponent implements OnInit{
 
   deleteTask(id:number,name:string){
     const confirmed = confirm("Are you sure you want to delete task "+name+" ?");
+    this.deleteErrorMessage='';
     if(!confirmed)
       return;
     this.isLoading=true;
@@ -102,4 +107,15 @@ export class TaskListComponent implements OnInit{
   get showingCount():number{
     return Math.min(this.pageNo*this.pageSize,this.totalCount);
   }
+
+  OpenProjectModal(){
+      const modalOptions:ModalOptions={
+        class:"modal-lg",
+        initialState:{
+          task:this.task
+        }
+      };
+  
+      this.bsModelRef = this.modalService.show(ProjectModalComponent,modalOptions);
+    }
 }

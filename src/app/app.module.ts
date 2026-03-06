@@ -7,6 +7,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthInterceptor} from './core/interceptors/auth.interceptor';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import {CarouselModule} from 'ngx-bootstrap/carousel';
+import {CollapseModule} from 'ngx-bootstrap/collapse';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +20,10 @@ import {AuthInterceptor} from './core/interceptors/auth.interceptor';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    ModalModule.forRoot(),
+    CarouselModule.forRoot(),
+    CollapseModule.forRoot(),
   ],
   providers: [
     {

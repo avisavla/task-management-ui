@@ -1,3 +1,4 @@
+<div style="background-color: rgb(220, 164, 220); min-height: 100vh;">
 <h2>Tasks</h2>
 
 <mat-progress-spinner *ngIf="isLoading" mode="indeterminate">
@@ -7,7 +8,7 @@
     No Tasks found
 </div>
 
-<ul *ngIf="!isLoading && tasks.length>0">
+<div class="container" *ngIf="!isLoading && tasks.length>0">
 
     <button (click)="prevPage()" [disabled]="pageNo==1">Previous Page</button>
     <span>Page {{pageNo}}</span>
@@ -37,14 +38,24 @@
 
     <p style="color: red;" *ngIf="deleteErrorMessage">{{deleteErrorMessage}}</p>
 
-    <li *ngFor="let task of tasks">
-        <strong>{{task.name}}</strong>
-        <p>{{task.description}}</p>
-        <p>Status : {{task.status}}</p>
-        <button (click)="editTask(task.id)">Edit</button>
-        <button (click)="deleteTask(task.id,task.name)">Delete</button>
-        <br>
-        <br>
-    </li>
+    <div class="row">
+        <div *ngFor="let task of tasks" class="col-lg-4 col-md-6 mb-4">
+             <div class="card shadow w-100 border">
+                <div class="card-header text-center" style="background-color:lightblue;">
+                    <p class="card-title text-center" style="margin-bottom: 0px;">{{task.name}}</p>
+                </div>
+                <div class="card-body">
+                    <div class="card-text text-center">{{task.description}}</div>
+                    <br>
+                    <div class="button-container">
+                        <button class="btn btn-info">{{task.status}}</button>
+                        <button class="btn btn-primary" (click)="OpenProjectModal()">View More</button>
+                        <button class="btn btn-warning" (click)="editTask(task.id)">Edit</button>
+                        <button class="btn btn-danger" (click)="deleteTask(task.id,task.name)">Delete</button>
+                    </div>
+                </div>
+        </div>
+    </div>
 
-</ul>
+</div>
+</div>
