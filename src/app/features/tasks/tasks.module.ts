@@ -8,7 +8,7 @@ import { FormsModule, ɵInternalFormsSharedModule, ReactiveFormsModule } from "@
 import { CreateTaskComponent } from './pages/create-task/create-task.component';
 import { EditTaskComponent } from './pages/edit-task/edit-task.component';
 // import { ProjectCardComponent } from 'src/app/shared/components/project-card/project-card.component';
-// import { ProjectModalComponent } from 'src/app/shared/components/project-modal/project-modal.component';
+ import { ProjectModalComponent } from 'src/app/features/tasks/common/components/project-modal/project-modal.component';
 // import { SharedModule } from 'src/app/shared/shared.module';
 // import { ProjectCardComponent } from './common/components/project-card/project-card.component';
 // import { ProjectModalComponent } from './common/components/project-modal/project-modal.component';
@@ -20,7 +20,7 @@ import { EditTaskComponent } from './pages/edit-task/edit-task.component';
     CreateTaskComponent,
     EditTaskComponent,
     //ProjectCardComponent,
-    //ProjectModalComponent
+    ProjectModalComponent
   ],
   imports: [
     CommonModule,

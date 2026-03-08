@@ -22,6 +22,7 @@ export class TaskListComponent implements OnInit{
   deleteErrorMessage:string='';
   @Input() task = {} as Task;
   bsModelRef?: BsModalRef;
+  selectedTask:any;
 
   constructor(private taskService:TaskService,private modalService:BsModalService) {}
 
@@ -108,11 +109,13 @@ export class TaskListComponent implements OnInit{
     return Math.min(this.pageNo*this.pageSize,this.totalCount);
   }
 
-  OpenProjectModal(){
+  OpenProjectModal(task:any){
       const modalOptions:ModalOptions={
-        class:"modal-lg",
+        class: "modal-lg",
+        backdrop: 'static',
+        keyboard: false,
         initialState:{
-          task:this.task
+          task:task
         }
       };
   

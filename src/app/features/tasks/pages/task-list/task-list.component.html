@@ -45,11 +45,11 @@
                     <p class="card-title text-center" style="margin-bottom: 0px;">{{task.name}}</p>
                 </div>
                 <div class="card-body">
-                    <div class="card-text text-center">{{task.description}}</div>
+                    <div class="card-text text-center task-desc">{{task.description}}</div>
                     <br>
                     <div class="button-container">
                         <button class="btn btn-info">{{task.status}}</button>
-                        <button class="btn btn-primary" (click)="OpenProjectModal()">View More</button>
+                        <button class="btn btn-primary" (click)="OpenProjectModal(task)">View More</button>
                         <button class="btn btn-warning" (click)="editTask(task.id)">Edit</button>
                         <button class="btn btn-danger" (click)="deleteTask(task.id,task.name)">Delete</button>
                     </div>

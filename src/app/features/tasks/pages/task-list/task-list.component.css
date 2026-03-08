@@ -3,3 +3,10 @@
     justify-content: space-between;
     gap: 8px;
 }
+
+.task-desc {
+  white-space: nowrap;        /* keep everything on a single line */
+  overflow: hidden;           /* hide overflowing text */
+  text-overflow: ellipsis;    /* add "..." at the end */
+  width: 200px;               /* adjust width to your flashcard */
+}

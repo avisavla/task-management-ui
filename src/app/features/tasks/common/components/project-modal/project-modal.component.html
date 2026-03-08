@@ -1,1 +1,8 @@
-<p>project-modal works!</p>
+<div class="modal-header" style="background-color: lightblue;">
+    <h2 style="margin-bottom: 0px; ">{{task?.name}}</h2>
+    <button class="btn-close" (click)="bsModalRef.hide()"></button>
+</div>
+<div class="modal-body">
+  <p>{{task?.description}}</p>
+  <p>Status : {{task?.status}}</p>
+</div>
