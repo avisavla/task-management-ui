@@ -3,6 +3,8 @@ import {TaskService} from '../../services/task.service';
 import {Task} from '../../model/task.model';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import {ProjectModalComponent} from 'src/app/features/tasks/common/components/project-modal/project-modal.component';
+import { TokenService } from 'src/app/core/services/token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-task-list',
@@ -24,7 +26,7 @@ export class TaskListComponent implements OnInit{
   bsModelRef?: BsModalRef;
   selectedTask:any;
 
-  constructor(private taskService:TaskService,private modalService:BsModalService) {}
+  constructor(private taskService:TaskService,private modalService:BsModalService,private tokenService:TokenService,private router:Router) {}
 
   ngOnInit(): void {
     this.loadTasks();
@@ -121,4 +123,13 @@ export class TaskListComponent implements OnInit{
   
       this.bsModelRef = this.modalService.show(ProjectModalComponent,modalOptions);
     }
+
+    logout(){
+      if(confirm("Are you sure you want to logout?"))
+      {
+        this.tokenService.clearToken();
+        this.router.navigate(['/login']);
+      }
+    }
+
 }
