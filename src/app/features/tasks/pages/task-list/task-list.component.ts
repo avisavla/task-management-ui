@@ -15,7 +15,7 @@ export class TaskListComponent implements OnInit{
   tasks:Task[]=[];
   isLoading = false;
   pageNo=1;
-  pageSize=5;
+  pageSize=12;
   totalCount=0;
   status:string='';
   text:string='';

@@ -1,61 +1,134 @@
 <div style="background-color: rgb(220, 164, 220); min-height: 100vh;">
-<h2>Tasks</h2>
 
-<mat-progress-spinner *ngIf="isLoading" mode="indeterminate">
-</mat-progress-spinner>
+  <!-- Loading Spinner -->
+  <div class="d-flex justify-content-center my-5" *ngIf="isLoading">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
 
-<div *ngIf="!isLoading && tasks.length==0">
-    No Tasks found
-</div>
+  <!-- Empty State -->
+  <div class="text-center" *ngIf="!isLoading && tasks.length==0">
+    No Tasks Found
+    <button class="btn btn-secondary btn-sm" (click)="text=''; status=''; loadTasks()">Clear Filters</button>
+  </div>
 
-<div class="container" *ngIf="!isLoading && tasks.length>0">
-
-    <button (click)="prevPage()" [disabled]="pageNo==1">Previous Page</button>
-    <span>Page {{pageNo}}</span>
-    <button (click)="nextPage()" [disabled]="pageNo*pageSize>=totalCount">Next Page</button>
-
-    <select [(ngModel)]="pageSize" (change)="loadTasks()">
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="20">20</option>
-    </select>
-    <p>Showing {{showingCount}} out of {{totalCount}}</p>
-
+  <!-- Main Container -->
+  <div class="container" *ngIf="!isLoading && tasks.length>0">
     <br>
 
-    <select [(ngModel)]="status" (change)="loadTasks()">
-        <option value="Pending">Pending</option>
-        <option value="InProgress">InProgress</option>
-        <option value="Completed">Completed</option>
-    </select>
+    <!-- Filter Card -->
+      <div class="card-body" style="background-color: rgb(220, 164, 220); ">
 
-    <br>
+        <div class="row g-3 align-items-end">
 
-    <textarea [(ngModel)]="text" (change)="loadTasks()" placeholder="Enter text to filter"></textarea>
+          <!-- Page Size -->
+          <div class="col-lg-2 col-md-3">
+            <label class="form-label fw-semibold">Page Size</label>
+            <select class="form-select" [(ngModel)]="pageSize" (change)="loadTasks()">
+              <option value="12">12</option>
+              <option value="16">16</option>
+              <option value="20">20</option>
+            </select>
+          </div>
 
-    <br>
-    <button (click)="createTask()">Create</button>
+          <!-- Status Filter -->
+          <div class="col-lg-3 col-md-3">
+            <label class="form-label fw-semibold">Status</label>
+            <select class="form-select" [(ngModel)]="status" (change)="loadTasks()">
+              <option value="">All Status</option>
+              <option value="Pending">Pending</option>
+              <option value="InProgress">In Progress</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
 
-    <p style="color: red;" *ngIf="deleteErrorMessage">{{deleteErrorMessage}}</p>
-
-    <div class="row">
-        <div *ngFor="let task of tasks" class="col-lg-4 col-md-6 mb-4">
-             <div class="card shadow w-100 border">
-                <div class="card-header text-center" style="background-color:lightblue;">
-                    <p class="card-title text-center" style="margin-bottom: 0px;">{{task.name}}</p>
-                </div>
-                <div class="card-body">
-                    <div class="card-text text-center task-desc">{{task.description}}</div>
-                    <br>
-                    <div class="button-container">
-                        <button class="btn btn-info">{{task.status}}</button>
-                        <button class="btn btn-primary" (click)="OpenProjectModal(task)">View More</button>
-                        <button class="btn btn-warning" (click)="editTask(task.id)">Edit</button>
-                        <button class="btn btn-danger" (click)="deleteTask(task.id,task.name)">Delete</button>
-                    </div>
-                </div>
+          <!-- Search -->
+          <div class="col-lg-4 col-md-4">
+            <label class="form-label fw-semibold">Search</label>
+            <div class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="text" placeholder="Search tasks...">
+                <button class="btn btn-primary" type="button" (click)="loadTasks()">Search</button>
+            </div>
         </div>
+
+          <!-- Create Button -->
+          <div class="col-lg-3 col-md-2">
+            <button class="btn btn-primary w-100 fw-semibold" (click)="createTask()">Create Task</button>
+          </div>
+
+        </div>
+
+      </div>
+      <br>
+
+    <!-- Delete Error -->
+    <p class="text-danger" *ngIf="deleteErrorMessage">
+      {{deleteErrorMessage}}
+    </p>
+
+    <!-- Task Cards -->
+    <div class="row g-4">
+
+      <div *ngFor="let task of tasks" class="col-xl-3 col-lg-4 col-md-6">
+
+        <div class="card h-100 shadow-sm task-card">
+
+          <div class="card-header text-center" style="background-color:  lightblue;">
+            {{task.name}}
+          </div>
+
+          <div class="card-body text-center">
+
+            <p class="card-text text-muted task-desc">
+              {{task.description}}
+            </p>
+
+            <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
+
+              <button class="btn btn-sm btn-info" >{{task.status}}</button>
+
+              <button class="btn btn-sm btn-primary" (click)="OpenProjectModal(task)">View</button>
+
+              <button class="btn btn-sm btn-warning" (click)="editTask(task.id)">Edit</button>
+
+              <button class="btn btn-sm btn-danger" (click)="deleteTask(task.id,task.name)">Delete</button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
 
-</div>
+    <!-- Pagination -->
+    <div class="d-flex justify-content-between align-items-center mt-4">
+
+      <p class="text-muted mb-0">
+        <b>Showing {{showingCount}} of {{totalCount}}</b>
+      </p>
+
+      <nav>
+        <ul class="pagination mb-0">
+
+          <li class="page-item" [class.disabled]="pageNo==1">
+            <button class="page-link" (click)="prevPage()">Previous</button>
+          </li>
+
+          <li class="page-item active">
+            <span class="page-link">{{pageNo}}</span>
+          </li>
+
+          <li class="page-item" [class.disabled]="pageNo*pageSize>=totalCount">
+            <button class="page-link" (click)="nextPage()">Next</button>
+          </li>
+
+        </ul>
+      </nav>
+
+    </div>
+
+  </div>
+
 </div>
