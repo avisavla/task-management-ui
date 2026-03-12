@@ -1,80 +1,81 @@
-Task Management System
+Task Management System – Frontend
 
-A full-stack Task Management System built using Angular and .NET 8 Web API.
-The application allows users to authenticate, manage tasks, and track task status with filtering and pagination.
+Angular frontend for the Task Management System.
 
-This project demonstrates JWT authentication, route protection, CRUD operations, REST API design, and error handling.
+This application provides the user interface for authentication and task management, communicating with the backend REST API built using .NET 8.
 
-----------------------------------------------------------------------------------------------------------------------
+The UI allows users to log in, manage tasks, apply filters, and navigate through paginated task lists.
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
 Table of Contents
 
 1. Project Overview
 2. Tech Stack
 3. Features
-4. Task Workflow
-5. Screenshots
-6. Project Structure
-7. API Endpoints
-8. Setup Instructions
-9. Authentication Flow
-10. Error Handling
-11. Future Improvements
-12. Author
-13. License
+4. Screenshots
+5. Project Structure
+6. Setup Instructions
+7. Authentication Flow
+8. Error Handling
+9. Backend Repository
+10. Author
 
-----------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------
 
 1. Project Overview
 
-The Task Management System allows authenticated users to manage tasks efficiently.
+The frontend application is built using Angular and communicates with the backend API using HTTP requests.
 
 Users can:
 
 * Log in using JWT authentication
-* Create, update, and delete tasks
-* View tasks with pagination
+* Create tasks
+* Edit tasks
+* Delete tasks
+* View paginated tasks
 * Filter tasks by status
-* Search tasks using text filtering
+* Search tasks using text filters
 
-The application is built with a separated frontend and backend architecture using Angular and .NET.
-
-----------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------
 
 2. Tech Stack
 
-Frontend
+Frontend Framework
 
 * Angular
-* Angular Forms
+* TypeScript
+
+Angular Features Used
+
+* Angular Forms (Reactive Forms)
 * Angular Routing
 * Angular HTTP Client
+* Angular Guards
+* Angular Interceptors
+
+UI Components
+
 * Angular Material (Loading Spinner)
 
-Backend
-
-* .NET 8 Web API
-* Entity Framework Core
-* SQL Server
-* JWT Authentication
-* Swagger (API Documentation)
-
-## Tools
+Tools
 
 * Git
 * GitHub
+* Node.js
+* npm
 
-----------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------
 
 3. Features
 
 Authentication
 
 * User Login
-* JWT Token Generation
-* Secure API access
+* JWT Token storage
 * Logout functionality
 * Route protection using Angular Auth Guard
-* HTTP Interceptor for attaching Authorization header
+* HTTP Interceptor to attach Authorization header
 
 Task Management
 
@@ -92,209 +93,94 @@ Task Controls
 
 Validation and Error Handling
 
-* Form validation
-* Server validation error handling
+* Reactive form validation
+* Server validation error display
 * API error handling
 * User friendly error messages
 
-----------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------
 
-4. Task Workflow
+4. Screenshots
 
-Tasks follow a simple lifecycle.
+Screenshots are stored in the screenshots folder.
 
-| Status     | Value |
-| ---------- | ----- |
-| Pending    | 0     |
-| InProgress | 1     |
-| Completed  | 2     |
+Login Page => screenshots/login.png
 
-Business Rules:
+Task List => screenshots/taskList.png
 
-* Newly created tasks are automatically Pending
-* Tasks cannot be deleted unless Completed
-* API returns 409 Conflict if deletion is attempted on restricted tasks
+Create Task => screenshots/createTask.png
 
-----------------------------------------------------------------------------------------------------------------------
+Edit Task => screenshots/editTask.png
 
-5. Screenshots
+----------------------------------------------------------------------------------------------------------------------------------------------
 
-screenshots folder is inside task-management-ui repo 
-
-Login Page=>(screenshots/login.png)
-
-Task List=>(screenshots/taskList.png)
-
-Create Task=>(screenshots/createTask.png)
-
-Edit Task=>(screenshots/editTask.png)
-
-----------------------------------------------------------------------------------------------------------------------
-
-6. Project Structure
-
-Frontend (Angular)
+5. Project Structure
 
 src/app
+
 core
+
 * guards
 * interceptors
+
 features
-* auth
-  * login
-  * register
-* tasks
-  * task-list
-  * create-task
-  * edit-task
+
+auth
+
+* login
+* register
+
+tasks
+
+* task-list
+* create-task
+* edit-task
+
 services
+
 models
 
-----------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------
 
-Backend (.NET)
+6. Setup Instructions
 
-Controllers
-* AuthController
-* TasksController
-Services
-* JwtTokenService
-Data
-* ApplicationDbContext
-Models
-DTOs
+Clone the frontend repository
 
-----------------------------------------------------------------------------------------------------------------------
-
-7. API Endpoints
-
-Authentication
-
-POST /api/auth/login
-Login user and return JWT token.
-
-POST /api/auth/register
-Register a new user.
-
-----------------------------------------------------------------------------------------------------------------------
-
-Tasks
-
-GET /api/tasks
-Fetch tasks with pagination and filters.
-
-Query parameters:
-pageNo
-pageSize
-status
-text
-
-Example:
-GET /api/tasks?pageNo=1&pageSize=5&status=Pending&text=test
-
-----------------------------------------------------------------------------------------------------------------------
-
-POST /api/tasks
-Create a new task.
-
-Request Body Example:
-
-{
-"name": "Sample Task",
-"description": "Task description"
-}
-
-----------------------------------------------------------------------------------------------------------------------
-
-PUT /api/tasks/{id}
-Update task.
-
-{
-"name": "Updated Task",
-"description": "Updated description",
-"status": "Completed"
-}
-
-----------------------------------------------------------------------------------------------------------------------
-
-DELETE /api/tasks/{id}
-
-Delete task.
-Business rule:
-
-Only Completed tasks can be deleted.
-If not, API returns 409 Conflict.
-
-----------------------------------------------------------------------------------------------------------------------
-
-8. Setup Instructions
-
-Clone the Repositories
-
-Clone both backend and frontend repositories:
-
-git clone https://github.com/avisavla/TaskManagementSystem.git
 git clone https://github.com/avisavla/task-management-ui.git
 
-Navigate to the backend project:
+Navigate to project
 
-cd TaskManagementSystem
+cd task-management-ui
 
-----------------------------------------------------------------------------------------------------------------------
+Install dependencies
 
-Backend Setup (.NET API)
+npm install
 
-Navigate to backend folder:cd backend
+Run Angular application
 
-Update the connection string inside appsettings.json:
+ng serve
 
-"ConnectionStrings": {
-"DefaultConnection": "your_sql_connection_string"
-}
+Application runs on
 
-Run database migration:dotnet ef database update
+http://localhost:4200
 
-Run backend API:dotnet run
+----------------------------------------------------------------------------------------------------------------------------------------------
 
-Backend will run on:https://localhost:44380
-
-----------------------------------------------------------------------------------------------------------------------
-
-Frontend Setup (Angular)
-
-Navigate to the frontend repository:cd task-management-ui
-
-Install dependencies:npm install
-
-Run Angular application:ng serve
-
-Application will run at:http://localhost:4200
-
-----------------------------------------------------------------------------------------------------------------------
-
-Application Access
-
-Backend API: https://localhost:44380
-Frontend UI: http://localhost:4200
-
-
-----------------------------------------------------------------------------------------------------------------------
-
-9. Authentication Flow
+7. Authentication Flow
 
 1. User logs in
-2. API validates credentials
+2. Backend validates credentials
 3. API returns JWT token
 4. Token stored in browser
-5. Angular HTTP interceptor attaches token to requests
+5. Angular interceptor attaches token to requests
 6. Backend validates token for protected endpoints
-7. Logout clears token
+7. Logout clears stored token
 
-----------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------
 
-10. Error Handling
+8. Error Handling
 
-The application handles common API errors.
+The frontend handles common API responses.
 
 | Status Code | Meaning                            |
 | ----------- | ---------------------------------- |
@@ -304,26 +190,18 @@ The application handles common API errors.
 | 409         | Conflict (business rule violation) |
 | 500         | Server error                       |
 
-----------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------
 
-11. Future Improvements
+9. Backend Repository
 
-Possible enhancements:
+Backend API repository:
 
-* Toast notifications
-* Responsive design
-* Unit tests
-* Docker support
-* Deployment to cloud
+https://github.com/avisavla/TaskManagementSystem
 
-----------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------
 
-12. Author - Avi Savla
+10. Author
 
-Developed as a full-stack learning project using Angular and .NET 8.
+Avi Savla
 
-----------------------------------------------------------------------------------------------------------------------
-
-13. License
-
-This project is open source and available under the MIT License.
+Frontend built using Angular as part of a full-stack learning project.
